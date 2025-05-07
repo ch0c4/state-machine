@@ -1,5 +1,6 @@
 class_name StateMachine extends Node
 
+@export var state_label: Label
 @export var initial_state: State
 
 var current_state: State
@@ -15,6 +16,9 @@ func _ready() -> void:
 	if initial_state:
 		initial_state.enter()
 		current_state = initial_state
+	
+	if state_label:
+		state_label.text = initial_state.name
 
 
 func _process(delta: float) -> void:
@@ -40,3 +44,7 @@ func on_child_transition(state: State, new_state_name: String) -> void:
 	
 	new_state.enter()
 	current_state = new_state
+
+
+	if state_label:
+		state_label.text = new_state_name
